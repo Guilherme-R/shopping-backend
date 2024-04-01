@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: shopping-backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/shopping?&createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+    username: root
+    password: root
+  jpa:
+    properties:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create
