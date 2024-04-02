@@ -21,7 +21,7 @@ public class Product {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long idProduct;
     private String name;
     private BigDecimal value;
     private Boolean isActive;
