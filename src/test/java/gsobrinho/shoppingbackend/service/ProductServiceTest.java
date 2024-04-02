@@ -15,8 +15,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,7 +31,7 @@ class ProductServiceTest {
 
 
     @Test
-    void findById(){
+    void findByIdProduct(){
         final Long idProduct = 1L;
         final Product product = Product.builder()
                 .idProduct(idProduct)
@@ -47,7 +48,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void findAllListOfProductNotEmpty(){
+    void findAllWithlistNotEmpty(){
         //Scene
         final Iterable<Product> iterable = Arrays.asList(new Product(), new Product());
 
@@ -77,5 +78,26 @@ class ProductServiceTest {
 
         //Validation
         assertNotNull(returnedProduct.getIdProduct());
+    }
+
+    @Test
+    void updateByIdProduct(){
+        //Scene
+        final Product product = Product.builder()
+                .idProduct(1L)
+                .name("TV")
+                .value(new BigDecimal("100.01"))
+                .isActive(Boolean.TRUE)
+                .build();
+
+        when(productRepository.findById(anyLong()))
+                .thenReturn(Optional.of(product));
+        when(productRepository.save(any())).thenReturn(product);
+
+        //Action
+        Product returnedProduct = service.update(product);
+
+        //Validation
+        assertEquals(0, new BigDecimal("100.01").compareTo(returnedProduct.getValue()));
     }
 }
