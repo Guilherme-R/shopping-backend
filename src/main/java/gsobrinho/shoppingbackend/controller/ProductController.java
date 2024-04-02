@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
 @RestController
 @RequestMapping("/shopping/product")
 public class ProductController {
@@ -38,5 +37,13 @@ public class ProductController {
             @RequestBody final Product product){
         product.setIdProduct(idProduct);
         return ResponseEntity.ok(productService.update(product));
+    }
+
+    @PutMapping("/isActive/{idProduct}")
+    public ResponseEntity<Product> updateIsActive(
+            @PathVariable final Long idProduct,
+            @RequestParam(required = true) final Boolean isActive){
+        productService.updateActive(idProduct, isActive);
+        return ResponseEntity.noContent().build();
     }
 }

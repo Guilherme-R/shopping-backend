@@ -18,7 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
@@ -62,7 +62,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void saveProductAndReturnWithNewId(){
+    void saveProductAndReturnNewId(){
         //Scene
         final Product product = Product.builder()
                 .name("TV")
@@ -99,5 +99,24 @@ class ProductServiceTest {
 
         //Validation
         assertEquals(0, new BigDecimal("100.01").compareTo(returnedProduct.getValue()));
+    }
+
+    @Test
+    void updateProductIsActive(){
+        final Long idProduct = 1L;
+        final Boolean isActive = Boolean.TRUE;
+
+        final Product product = Product.builder()
+                .idProduct(1L)
+                .name("TV")
+                .value(new BigDecimal("100.01"))
+                .isActive(Boolean.FALSE)
+                .build();
+
+        when(productRepository.findById(anyLong())).thenReturn(Optional.of(product));
+
+        service.updateActive(idProduct, isActive);
+
+        verify(productRepository, times(1)).save(any());
     }
 }
