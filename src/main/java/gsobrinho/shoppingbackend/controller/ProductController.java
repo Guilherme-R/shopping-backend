@@ -1,15 +1,13 @@
 package gsobrinho.shoppingbackend.controller;
 
-import gsobrinho.shoppingbackend.domain.Product;
+import gsobrinho.shoppingbackend.domain.model.Product;
 import gsobrinho.shoppingbackend.service.ProductService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
 @RestController
 @RequestMapping("/shopping/product")
 public class ProductController {
@@ -38,5 +36,13 @@ public class ProductController {
             @RequestBody final Product product){
         product.setIdProduct(idProduct);
         return ResponseEntity.ok(productService.update(product));
+    }
+
+    @PutMapping("/isActive/{idProduct}")
+    public ResponseEntity<Product> updateIsActive(
+            @PathVariable final Long idProduct,
+            @RequestParam(required = true) final Boolean isActive){
+        productService.updateActive(idProduct, isActive);
+        return ResponseEntity.noContent().build();
     }
 }

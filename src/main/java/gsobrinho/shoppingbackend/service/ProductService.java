@@ -1,6 +1,6 @@
 package gsobrinho.shoppingbackend.service;
 
-import gsobrinho.shoppingbackend.domain.Product;
+import gsobrinho.shoppingbackend.domain.model.Product;
 
 import java.util.List;
 
@@ -13,4 +13,6 @@ public interface ProductService {
     Product save(Product product);
 
     Product update(Product product);
+
+    void updateActive(final Long idProduct, final Boolean isActive);
 }

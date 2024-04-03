@@ -1,4 +1,4 @@
-package gsobrinho.shoppingbackend.domain;
+package gsobrinho.shoppingbackend.domain.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

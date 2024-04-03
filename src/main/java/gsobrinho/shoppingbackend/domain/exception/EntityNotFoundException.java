@@ -1,4 +1,4 @@
-package gsobrinho.shoppingbackend.exception;
+package gsobrinho.shoppingbackend.domain.exception;
 
 public class EntityNotFoundException extends RuntimeException{
 
