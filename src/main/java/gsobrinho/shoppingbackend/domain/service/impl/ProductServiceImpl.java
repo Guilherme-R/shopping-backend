@@ -1,9 +1,10 @@
-package gsobrinho.shoppingbackend.service.impl;
+package gsobrinho.shoppingbackend.domain.service.impl;
 
 import gsobrinho.shoppingbackend.domain.model.Product;
 import gsobrinho.shoppingbackend.domain.exception.EntityNotFoundException;
-import gsobrinho.shoppingbackend.repository.ProductRepository;
-import gsobrinho.shoppingbackend.service.ProductService;
+import gsobrinho.shoppingbackend.domain.repository.ProductRepository;
+import gsobrinho.shoppingbackend.domain.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@RequiredArgsConstructor
 @Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public Product findById(final Long idProduct) {
@@ -29,8 +30,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAll() {
         log.info("Searching a list of products.");
-        return StreamSupport.stream(productRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        return StreamSupport.stream(productRepository.findAll().spliterator(), false).toList();
     }
 
     @Override
@@ -41,8 +41,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(final Product product) {
-        log.info("Updating product with id: {}.", product.getIdProduct());
-        findById(product.getIdProduct());
+        log.info("Updating product with id: {}.", product.getProductId());
+        findById(product.getProductId());
         return save(product);
     }
 
@@ -51,7 +51,6 @@ public class ProductServiceImpl implements ProductService {
         log.info("Updating activation to: {}, of product with id: {}.", isActive, idProduct);
         Product product = findById(idProduct);
         product.setIsActive(isActive);
-
         save(product);
     }
 }

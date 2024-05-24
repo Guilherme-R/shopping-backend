@@ -1,4 +1,4 @@
-package gsobrinho.shoppingbackend.service;
+package gsobrinho.shoppingbackend.domain.service;
 
 import gsobrinho.shoppingbackend.domain.model.Product;
 

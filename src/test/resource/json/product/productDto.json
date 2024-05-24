@@ -1,0 +1,10 @@
+{
+  "productId": 1,
+  "name": "Computador Dell",
+  "description": "Computador Dell, processsador i3 14001",
+  "quantity": "10",
+  "price": 2500.00,
+  "discountPct": 0.00,
+  "productStatusId": 2,
+  "isActive": false
+}

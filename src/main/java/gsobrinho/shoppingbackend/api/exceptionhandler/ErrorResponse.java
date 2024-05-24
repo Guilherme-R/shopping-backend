@@ -1,4 +1,4 @@
-package gsobrinho.shoppingbackend.exceptionhandler;
+package gsobrinho.shoppingbackend.api.exceptionhandler;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ErrorResponse {
 
     private Integer status;

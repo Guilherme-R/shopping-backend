@@ -1,5 +1,6 @@
-package gsobrinho.shoppingbackend.exceptionhandler;
+package gsobrinho.shoppingbackend.api.exceptionhandler;
 
+import gsobrinho.shoppingbackend.domain.exception.BusinessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -16,8 +17,24 @@ import java.util.Objects;
 @ControllerAdvice
 public class ShoppingExceptionHandler extends ResponseEntityExceptionHandler {
 
+
+    @ExceptionHandler({BusinessException.class})
+    public ResponseEntity<Object> businessExceptionHandler(
+            final EntityNotFoundException ex, final WebRequest request){
+        final HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        final ErrorResponse errorBody = ErrorResponse.builder()
+                .status(status.value())
+                .title(status.getReasonPhrase())
+                .detail(ex.getMessage())
+                .dateTime(LocalDateTime.now())
+                .build();
+
+        return handleExceptionInternal(ex, errorBody, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
     @ExceptionHandler({EntityNotFoundException.class})
-    public ResponseEntity<Object> EntityNotFoundExceptionHandler(
+    public ResponseEntity<Object> entityNotFoundExceptionHandler(
             final EntityNotFoundException ex, final WebRequest request){
         final HttpStatus status = HttpStatus.NOT_FOUND;
 
