@@ -25,30 +25,30 @@ public class JsonUtils {
 
     private static final String MSG_ERROR = "Unable to read json!";
 
-    public static <T> T jsonToObject(final String json, TypeReference<T> valueTypeRef) {
+    public static <T> T jsonToObject(final String json, final TypeReference<T> valueTypeRef) {
         try{
             return objectMapper.readValue(json, valueTypeRef);
         }catch(JsonProcessingException e){
-            log.error(MSG_ERROR);
-            throw new BusinessException(MSG_ERROR);
+            log.error(e.getMessage());
+            throw new BusinessException(MSG_ERROR, e);
         }
     }
 
-    public static <T> T fileToObject(final String pathName, TypeReference<T> valueTypeRef) {
+    public static <T> T fileToObject(final String pathName, final TypeReference<T> valueTypeRef) {
         try{
             return objectMapper.readValue(new File(pathName), valueTypeRef);
         }catch(IOException e){
             log.error(e.getMessage());
-            throw new BusinessException(MSG_ERROR);
+            throw new BusinessException(MSG_ERROR, e);
         }
     }
 
-    public static String fileToObject(final Object obj) {
+    public static String objectToJson(final Object obj) {
         try{
             return objectMapper.writeValueAsString(obj);
         }catch(IOException e){
-            log.error(MSG_ERROR);
-            throw new BusinessException(MSG_ERROR);
+            log.error(e.getMessage());
+            throw new BusinessException(MSG_ERROR, e);
         }
     }
 }

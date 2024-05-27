@@ -26,7 +26,7 @@ public class ShoppingExceptionHandler extends ResponseEntityExceptionHandler {
         final ErrorResponse errorBody = ErrorResponse.builder()
                 .status(status.value())
                 .title(status.getReasonPhrase())
-                .detail(ex.getMessage())
+                .detail(ex.getLocalizedMessage())
                 .dateTime(LocalDateTime.now())
                 .build();
 
@@ -40,7 +40,7 @@ public class ShoppingExceptionHandler extends ResponseEntityExceptionHandler {
 
         final ErrorResponse errorBody = ErrorResponse.builder()
                 .status(status.value())
-                .title("Entity not found")
+                .title(status.getReasonPhrase())
                 .detail(ex.getMessage())
                 .dateTime(LocalDateTime.now())
                 .build();
@@ -56,14 +56,14 @@ public class ShoppingExceptionHandler extends ResponseEntityExceptionHandler {
         if(Objects.isNull(body))
             errorBody = ErrorResponse.builder()
                 .status(statusCode.value())
-                .title(statusCode.toString())
-                .detail(ex.getMessage())
+                .title(((HttpStatus) statusCode).getReasonPhrase())
+                .detail(ex.getLocalizedMessage())
                 .dateTime(LocalDateTime.now())
                 .build();
         else if(body instanceof String)
             errorBody = ErrorResponse.builder()
                 .status(statusCode.value())
-                .title(statusCode.toString())
+                .title(((HttpStatus) statusCode).getReasonPhrase())
                 .detail(body.toString())
                 .dateTime(LocalDateTime.now())
                 .build();

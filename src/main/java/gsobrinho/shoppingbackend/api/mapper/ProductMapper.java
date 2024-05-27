@@ -8,7 +8,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper
 public interface ProductMapper {
@@ -20,8 +19,7 @@ public interface ProductMapper {
     ProductDto productToProductDto(Product product);
 
     default List<ProductDto> lsProductToLsProductDto(List<Product> lsProduct) {
-        return lsProduct.stream().map(this::productToProductDto)
-                .collect(Collectors.toList());
+        return lsProduct.stream().map(this::productToProductDto).toList();
     }
 
     @Named("enumToProductStatusId")

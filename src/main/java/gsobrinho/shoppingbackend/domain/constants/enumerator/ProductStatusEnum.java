@@ -16,9 +16,8 @@ public enum ProductStatusEnum {
 
     public static ProductStatusEnum valueOf(long id) {
         for (ProductStatusEnum status : values()) {
-            if (status.id == id) {
+            if (status.id == id)
                 return status;
-            }
         }
         throw new IllegalArgumentException("Invalid ProductStatusEnum id: " + id);
     }

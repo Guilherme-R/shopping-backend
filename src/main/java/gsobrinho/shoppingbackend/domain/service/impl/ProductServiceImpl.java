@@ -1,16 +1,14 @@
 package gsobrinho.shoppingbackend.domain.service.impl;
 
-import gsobrinho.shoppingbackend.domain.model.Product;
 import gsobrinho.shoppingbackend.domain.exception.EntityNotFoundException;
+import gsobrinho.shoppingbackend.domain.model.Product;
 import gsobrinho.shoppingbackend.domain.repository.ProductRepository;
 import gsobrinho.shoppingbackend.domain.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RequiredArgsConstructor
