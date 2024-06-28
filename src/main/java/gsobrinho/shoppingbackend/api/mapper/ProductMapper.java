@@ -1,6 +1,7 @@
 package gsobrinho.shoppingbackend.api.mapper;
 
 import gsobrinho.shoppingbackend.api.dto.ProductDto;
+import gsobrinho.shoppingbackend.api.form.ProductForm;
 import gsobrinho.shoppingbackend.domain.constants.enumerator.ProductStatusEnum;
 import gsobrinho.shoppingbackend.domain.model.Product;
 import org.mapstruct.Mapper;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface ProductMapper {
 
     @Mapping(source = "productStatus", target = "productStatusId", qualifiedByName = "enumToProductStatusId")
-    Product productDtoToProduct(ProductDto productDto);
+    Product productFormToProduct(ProductForm productForm);
 
     @Mapping(source = "productStatusId", target = "productStatus", qualifiedByName = "productStatusIdToEnum")
     ProductDto productToProductDto(Product product);

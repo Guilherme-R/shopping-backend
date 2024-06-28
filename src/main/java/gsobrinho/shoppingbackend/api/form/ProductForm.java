@@ -1,4 +1,4 @@
-package gsobrinho.shoppingbackend.api.dto;
+package gsobrinho.shoppingbackend.api.form;
 
 import gsobrinho.shoppingbackend.domain.constants.enumerator.ProductStatusEnum;
 import jakarta.validation.constraints.NotNull;
@@ -14,14 +14,22 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDto {
+public class ProductForm {
 
     private Long productId;
+    @NotNull
     private String name;
+    @NotNull
     private String description;
+    @NotNull
     private String quantity;
+    @NotNull
     private BigDecimal price;
+    @NotNull
+    @PositiveOrZero
     private BigDecimal discountPct;
+    @NotNull
     private Boolean isActive;
+    @NotNull
     private ProductStatusEnum productStatus;
 }

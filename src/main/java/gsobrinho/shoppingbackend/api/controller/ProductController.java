@@ -1,12 +1,12 @@
 package gsobrinho.shoppingbackend.api.controller;
 
 import gsobrinho.shoppingbackend.api.dto.ProductDto;
+import gsobrinho.shoppingbackend.api.form.ProductForm;
 import gsobrinho.shoppingbackend.api.mapper.ProductMapper;
 import gsobrinho.shoppingbackend.domain.model.Product;
 import gsobrinho.shoppingbackend.domain.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +36,8 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductDto> save(
-            @Valid @RequestBody final ProductDto productDto){
-        Product product = productMapper.productDtoToProduct(productDto);
+            @Valid @RequestBody final ProductForm productForm){
+        Product product = productMapper.productFormToProduct(productForm);
         return ResponseEntity.ok(productMapper.productToProductDto(
                 productService.save(product)));
     }
@@ -45,9 +45,9 @@ public class ProductController {
     @PutMapping("/{idProduct}")
     public ResponseEntity<ProductDto> update(
             @PathVariable final Long idProduct,
-            @Valid @RequestBody final ProductDto productDto){
-        productDto.setProductId(idProduct);
-        Product product = productMapper.productDtoToProduct(productDto);
+            @Valid @RequestBody final ProductForm productForm){
+        productForm.setProductId(idProduct);
+        Product product = productMapper.productFormToProduct(productForm);
         return ResponseEntity.ok(productMapper.productToProductDto(
                 productService.update(product)));
     }

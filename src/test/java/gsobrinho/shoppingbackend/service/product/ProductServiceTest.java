@@ -86,18 +86,21 @@ class ProductServiceTest {
         Product returnedProduct = service.update(objTest.getProduct());
 
         //Validation
-        assertEquals(0, new BigDecimal("100.01").compareTo(returnedProduct.getPrice()));
+        assertEquals(0, new BigDecimal("2500.00").compareTo(returnedProduct.getPrice()));
     }
 
     @Test
     void updateProductIsActive(){
         final Long idProduct = 1L;
 
+        //Scene
         when(productRepository.findById(anyLong())).thenReturn(
                 Optional.of(objTest.getProduct()));
 
+        //Action
         service.updateActive(idProduct, true);
 
+        //Validation
         verify(productRepository, times(1)).save(any());
     }
 }
