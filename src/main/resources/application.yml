@@ -2,12 +2,15 @@ spring:
   application:
     name: shopping-backend
   datasource:
-    url: jdbc:mysql://localhost:3306/shopping?&createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
-    username: root
-    password: root
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   jpa:
     properties:
       dialect: org.hibernate.dialect.MySQL8Dialect
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: create
+
+
+#url: jdbc:mysql://100.27.207.11:3306/shopping?&createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
