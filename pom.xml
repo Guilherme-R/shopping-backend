@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>gsobrinho</groupId>
 	<artifactId>shopping-backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>shopping-backend</name>
 	<description>Projeto criado para aplicar e testar o que já aprendi e que estudo.</description>
 	<properties>
@@ -63,6 +63,11 @@
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
