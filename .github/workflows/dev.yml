@@ -28,9 +28,8 @@ jobs:
   deploy:
     needs: build
     runs-on: self-hosted
-    step:
+    steps:
       - name: Pull Image From Docker Hub
         run: docker pull guilhermerbs/shopping-backend:latest
       - name: Run Docker container
         run: docker run -d -p 8080:8080 --name deploy_shopping_backend guilhermerbs/shopping-backend
-      
