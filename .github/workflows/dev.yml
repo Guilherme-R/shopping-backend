@@ -34,7 +34,7 @@ jobs:
       - name: Remove docker container
         run: docker rm -f deploy_shopping_backend || true
       - name: Run Docker container
-        run: | 
+        run: |
           docker run -d \
           -p 8080:8080 \
           -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} \
