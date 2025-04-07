@@ -1,5 +1,11 @@
-FROM eclipse-temurin:21-jdk-alpine
+FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-COPY target/shopping-backend-1.0.0.jar shopping-backend-1.0.0.jar
+
+# Copia o JAR
+COPY target/shopping-backend-1.0.0.jar app.jar
+
+# Expõe a porta padrão
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "shopping-backend-1.0.0.jar"]
+
+# Roda o app com limites de memória
+ENTRYPOINT ["java", "-Xmx256m", "-Xms128m", "-jar", "app.jar"]
