@@ -1,11 +1,8 @@
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:21-jdk-alpine as builder
 WORKDIR /app
-
-# Copia o JAR
 COPY target/shopping-backend-1.0.0.jar app.jar
 
-# Expõe a porta padrão
+FROM gcr.io/distroless/java21-debian11
+COPY --from=builder /app/app.jar app.jar
 EXPOSE 8080
-
-# Roda o app com limites de memória
-ENTRYPOINT ["java", "-Xmx256m", "-Xms128m", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]
