@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: shopping-backend
+
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+
+
+#url: jdbc:mysql://3.85.234.184:3306/shopping?&createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
