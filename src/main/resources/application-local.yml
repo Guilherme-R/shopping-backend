@@ -3,7 +3,7 @@ spring:
     name: shopping-backend
 
   datasource:
-    url: jdbc:mysql://3.91.33.246:3306/shopping?&createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://ec2-54-91-16-211.compute-1.amazonaws.com:3306/shopping?&createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
