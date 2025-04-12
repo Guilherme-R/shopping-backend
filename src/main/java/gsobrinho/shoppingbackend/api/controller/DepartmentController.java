@@ -9,6 +9,7 @@ import gsobrinho.shoppingbackend.domain.model.Department;
 import gsobrinho.shoppingbackend.domain.model.Product;
 import gsobrinho.shoppingbackend.domain.service.DepartmentService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +19,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/department")
 public class DepartmentController {
 
     @Autowired
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     @Autowired
-    private DepartmentMapper departmentMapper;
+    private final DepartmentMapper departmentMapper;
 
 
     @GetMapping("/{idDepartment}")

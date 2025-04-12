@@ -1,9 +1,7 @@
 package gsobrinho.shoppingbackend.domain.service.impl;
 
-import gsobrinho.shoppingbackend.api.dto.DepartmentDto;
 import gsobrinho.shoppingbackend.domain.exception.EntityNotFoundException;
 import gsobrinho.shoppingbackend.domain.model.Department;
-import gsobrinho.shoppingbackend.domain.model.Product;
 import gsobrinho.shoppingbackend.domain.repository.DepartmentRepository;
 import gsobrinho.shoppingbackend.domain.service.DepartmentService;
 import lombok.extern.slf4j.Slf4j;
