@@ -20,9 +20,19 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     @Override
-    public Department findById(final Long idDepartment) {
-        return departmentRepository.findById(idDepartment)
-                .orElseThrow(() -> new EntityNotFoundException("Product not found by id: ".concat(idDepartment.toString())));
+    public Department findById(final Long departmentId) {
+        return departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found by id: ".concat(departmentId.toString())));
+    }
+
+    @Override
+    public List<Department> findByProductId(Long productId) {
+        return departmentRepository.findByProductId(productId);
+    }
+
+    @Override
+    public List<Department> findAllByIds(List<Long> lsDepartmentId) {
+        return StreamSupport.stream(departmentRepository.findAllById(lsDepartmentId).spliterator(), false).toList();
     }
 
     @Override
@@ -42,8 +52,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void updateActive(final Long idDepartment, final Boolean isActive) {
-        Department department = findById(idDepartment);
+    public void updateActive(final Long departmentId, final Boolean isActive) {
+        Department department = findById(departmentId);
         department.setIsActive(isActive);
         save(department);
     }

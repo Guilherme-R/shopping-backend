@@ -15,4 +15,6 @@ public interface ProductService {
     Product update(Product product);
 
     void updateActive(final Long idProduct, final Boolean isActive);
+
+    void deleteDepartmentParity(final Long idProduct, List<Long> lsDepartment);
 }

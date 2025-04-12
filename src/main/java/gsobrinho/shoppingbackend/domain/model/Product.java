@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Builder
@@ -32,4 +33,7 @@ public class Product {
     private Integer productStatusId;
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
+
+    @Transient
+    private List<Department> lsDepartment;
 }

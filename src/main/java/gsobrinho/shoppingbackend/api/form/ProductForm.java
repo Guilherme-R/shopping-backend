@@ -1,6 +1,7 @@
 package gsobrinho.shoppingbackend.api.form;
 
 import gsobrinho.shoppingbackend.domain.constants.enumerator.ProductStatusEnum;
+import gsobrinho.shoppingbackend.domain.model.Department;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @ToString
 @Data
@@ -36,4 +38,6 @@ public class ProductForm {
     private Boolean isActive;
     @NotNull
     private ProductStatusEnum productStatus;
+
+    private List<Department> lsDepartment;
 }

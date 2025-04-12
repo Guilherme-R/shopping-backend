@@ -1,4 +1,4 @@
-INSERT INTO product_department_parity (id_product, id_department) VALUES
+INSERT INTO product_department_parity (product_id, department_id) VALUES
 (1, 1),
 (1, 2),
 (2, 2),

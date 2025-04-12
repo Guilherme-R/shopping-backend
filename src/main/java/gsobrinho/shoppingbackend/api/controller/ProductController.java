@@ -66,4 +66,13 @@ public class ProductController {
         productService.updateActive(idProduct, Boolean.FALSE);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/department/{idProduct}")
+    public ResponseEntity<Void> deleteDepartmentParity(
+            @PathVariable final Long idProduct,
+            @RequestParam("department") final List<Long> lsDepartment){
+        log.info("Deleting department parities with product id: {}", idProduct);
+        productService.deleteDepartmentParity(idProduct, lsDepartment);
+        return ResponseEntity.noContent().build();
+    }
 }

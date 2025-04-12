@@ -5,6 +5,7 @@ import gsobrinho.shoppingbackend.domain.model.id.ProductDepartmentParityId;
 import jakarta.persistence.*;
 import lombok.*;
 
+@Builder
 @Data
 @EqualsAndHashCode
 @AllArgsConstructor

@@ -8,6 +8,10 @@ public interface DepartmentService {
 
     Department findById(Long idDepartment);
 
+    List<Department> findByProductId(Long productId);
+
+    List<Department> findAllByIds(List<Long> lsIdDepartment);
+
     List<Department> findAll();
 
     Department save(final Department department);
