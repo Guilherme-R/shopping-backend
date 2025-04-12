@@ -1,5 +1,8 @@
 name: Deploy app shopping-backend
 
+on:
+  workflow_dispatch:
+
 #on:
 #  push:
 #    branches: [develop]
@@ -28,16 +31,6 @@ jobs:
 
       - name: Push image docker
         run: docker push guilhermerbs/shopping-backend
-
-#  create ambient:
-#    runs-on: self-hosted
-#    steps:
-#      - name: Install Docker
-#        run: |
-#          sudo yum update -y
-#          sudo yum install -y docker
-#          sudo systemctl start docker
-#          sudo usermod -aG docker $USER
 
   deploy:
     needs: build
