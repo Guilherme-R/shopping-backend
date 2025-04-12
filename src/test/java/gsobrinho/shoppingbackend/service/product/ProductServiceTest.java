@@ -45,7 +45,7 @@ class ProductServiceTest {
         Product returnedProduct = service.findById(idProduct);
 
         Assertions.assertNotNull(returnedProduct);
-        Assertions.assertEquals(returnedProduct.getProductId(), idProduct);
+        Assertions.assertEquals(returnedProduct.getId(), idProduct);
     }
 
     @Test
@@ -67,13 +67,13 @@ class ProductServiceTest {
     void saveProductAndReturnNewId(){
         //Scene
         when(productRepository.save(any()))
-            .thenReturn(Product.builder().productId(1L).build());
+            .thenReturn(Product.builder().id(1L).build());
 
         //Action
         Product returnedProduct = service.save(objTest.getProduct());
 
         //Validation
-        assertNotNull(returnedProduct.getProductId());
+        assertNotNull(returnedProduct.getId());
     }
 
     @Test

@@ -1,6 +1,6 @@
 services:
   mysql-shopping:
-    image: mysql:latest
+    image: mysql:8.0.36
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:

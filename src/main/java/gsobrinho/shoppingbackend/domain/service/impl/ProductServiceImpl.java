@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(final Product product) {
-        findById(product.getProductId());
+        findById(product.getId());
         return save(product);
     }
 

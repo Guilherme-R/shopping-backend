@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
-@ToString
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,14 +16,14 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id", nullable = false)
-    private Long productId;
+    @Column(name = "id", nullable = false)
+    private Long id;
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "description", nullable = false)
     private String description;
     @Column(name = "quantity", nullable = false)
-    private String quantity;
+    private Integer quantity;
     @Column(name = "price", nullable = false)
     private BigDecimal price;
     @Column(name = "discount_pct", nullable = false)

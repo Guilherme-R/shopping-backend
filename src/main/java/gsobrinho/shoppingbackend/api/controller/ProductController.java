@@ -42,7 +42,7 @@ public class ProductController {
     public ResponseEntity<ProductDto> save(
             @Valid @RequestBody final ProductForm productForm){
         Product product = productMapper.productFormToProduct(productForm);
-        product.setProductId(null);
+        product.setId(null);
         log.info("Saving product with name: {}.", product.getName());
         return ResponseEntity.ok(productMapper.productToProductDto(
                 productService.save(product)));
@@ -53,7 +53,7 @@ public class ProductController {
             @PathVariable final Long idProduct,
             @Valid @RequestBody final ProductForm productForm){
         log.info("Updating product with id: {}.", idProduct);
-        productForm.setProductId(idProduct);
+        productForm.setId(idProduct);
         Product product = productMapper.productFormToProduct(productForm);
         return ResponseEntity.ok(productMapper.productToProductDto(
                 productService.update(product)));

@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class ProductForm {
 
-    private Long productId;
+    private Long id;
     @NotNull
     private String name;
     @NotNull
