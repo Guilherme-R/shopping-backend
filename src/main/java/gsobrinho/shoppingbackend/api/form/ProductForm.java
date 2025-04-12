@@ -1,7 +1,9 @@
 package gsobrinho.shoppingbackend.api.form;
 
 import gsobrinho.shoppingbackend.domain.constants.enumerator.ProductStatusEnum;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,13 +19,15 @@ import java.math.BigDecimal;
 public class ProductForm {
 
     private Long id;
-    @NotNull
+    @NotBlank
     private String name;
     @NotNull
     private String description;
     @NotNull
-    private String quantity;
+    @PositiveOrZero
+    private Integer quantity;
     @NotNull
+    @PositiveOrZero
     private BigDecimal price;
     @NotNull
     @PositiveOrZero
