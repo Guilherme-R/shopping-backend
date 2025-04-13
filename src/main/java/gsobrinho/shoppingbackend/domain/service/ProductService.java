@@ -10,11 +10,13 @@ public interface ProductService {
 
     List<Product> findAll();
 
+    List<Product> findAllByDepartmentId(Long idDepartment);
+
     Product save(Product product);
 
     Product update(Product product);
 
-    void updateActive(final Long idProduct, final Boolean isActive);
+    void updateActive(Long idProduct, Boolean isActive);
 
-    void deleteDepartmentParity(final Long idProduct, List<Long> lsDepartment);
+    void deleteAssociation(Long idProduct, List<Long> lsDepartment);
 }

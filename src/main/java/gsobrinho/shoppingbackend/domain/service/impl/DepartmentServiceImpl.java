@@ -3,58 +3,64 @@ package gsobrinho.shoppingbackend.domain.service.impl;
 import gsobrinho.shoppingbackend.domain.exception.EntityNotFoundException;
 import gsobrinho.shoppingbackend.domain.model.Department;
 import gsobrinho.shoppingbackend.domain.repository.DepartmentRepository;
+import gsobrinho.shoppingbackend.domain.repository.ProductDepartmentParityRepository;
 import gsobrinho.shoppingbackend.domain.service.DepartmentService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-    @Autowired
-    private DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
 
+    private final ProductDepartmentParityRepository productDepartmentParityRepository;
 
-    @Override
     public Department findById(final Long departmentId) {
         return departmentRepository.findById(departmentId)
                 .orElseThrow(() -> new EntityNotFoundException("Product not found by id: ".concat(departmentId.toString())));
     }
 
-    @Override
     public List<Department> findByProductId(Long productId) {
         return departmentRepository.findByProductId(productId);
     }
 
-    @Override
     public List<Department> findAllByIds(List<Long> lsDepartmentId) {
         return StreamSupport.stream(departmentRepository.findAllById(lsDepartmentId).spliterator(), false).toList();
     }
 
-    @Override
     public List<Department> findAll() {
         return StreamSupport.stream(departmentRepository.findAll().spliterator(), false).toList();
     }
 
-    @Override
+    @Transactional
     public Department save(final Department department){
         return departmentRepository.save(department);
     }
 
-    @Override
+    @Transactional
     public Department update(final Department department) {
         findById(department.getId());
         return save(department);
     }
 
-    @Override
-    public void updateActive(final Long departmentId, final Boolean isActive) {
+    @Transactional
+    public void deactivateDepartment(final Long departmentId) {
         Department department = findById(departmentId);
-        department.setIsActive(isActive);
+        department.setIsActive(Boolean.FALSE);
         save(department);
+
+        deleteAllParities(departmentId);
+    }
+
+    private void deleteAllParities(final Long departmentId){
+        log.info("Deleting all parity records for department ID: {}.", departmentId);
+        productDepartmentParityRepository.deleteByDepartmentId(departmentId);
     }
 }

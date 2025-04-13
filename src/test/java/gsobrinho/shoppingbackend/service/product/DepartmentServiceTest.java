@@ -98,7 +98,7 @@ class DepartmentServiceTest {
                 Optional.of(objTest.getDepartment()));
 
         //Action
-        service.updateActive(idDepartment, true);
+        service.deactivateDepartment(idDepartment);
 
         //Validation
         verify(departmentRepository, times(1)).save(any());

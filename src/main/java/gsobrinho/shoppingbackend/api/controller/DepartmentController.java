@@ -1,12 +1,9 @@
 package gsobrinho.shoppingbackend.api.controller;
 
 import gsobrinho.shoppingbackend.api.dto.DepartmentDto;
-import gsobrinho.shoppingbackend.api.dto.ProductDto;
 import gsobrinho.shoppingbackend.api.form.DepartmentForm;
-import gsobrinho.shoppingbackend.api.form.ProductForm;
 import gsobrinho.shoppingbackend.api.mapper.DepartmentMapper;
 import gsobrinho.shoppingbackend.domain.model.Department;
-import gsobrinho.shoppingbackend.domain.model.Product;
 import gsobrinho.shoppingbackend.domain.service.DepartmentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -31,11 +27,11 @@ public class DepartmentController {
     private final DepartmentMapper departmentMapper;
 
 
-    @GetMapping("/{idDepartment}")
+    @GetMapping("/{departmentId}")
     public ResponseEntity<DepartmentDto> findById(
-            @PathVariable("idDepartment") final Long idDepartment){
-        log.info("Searching department by id: {}", idDepartment);
-        return ResponseEntity.ok(departmentMapper.departmentToDepartmentDto(departmentService.findById(idDepartment)));
+            @PathVariable("departmentId") final Long departmentId){
+        log.info("Searching department by id: {}", departmentId);
+        return ResponseEntity.ok(departmentMapper.departmentToDepartmentDto(departmentService.findById(departmentId)));
     }
 
     @GetMapping
@@ -54,22 +50,22 @@ public class DepartmentController {
                 departmentService.save(department)));
     }
 
-    @PutMapping("/{idDepartment}")
+    @PutMapping("/{departmentId}")
     public ResponseEntity<DepartmentDto> update(
-            @PathVariable final Long idDepartment,
+            @PathVariable final Long departmentId,
             @Valid @RequestBody final DepartmentForm departmentForm){
-        log.info("Updating product with id: {}.", idDepartment);
-        departmentForm.setId(idDepartment);
+        log.info("Updating product with id: {}.", departmentId);
+        departmentForm.setId(departmentId);
         Department department = departmentMapper.departmentFormToDepartment(departmentForm);
         return ResponseEntity.ok(departmentMapper.departmentToDepartmentDto(
                 departmentService.update(department)));
     }
 
-    @DeleteMapping("/{idDepartment}")
+    @DeleteMapping("/{departmentId}")
     public ResponseEntity<?> deleteDepartment(
-            @PathVariable("idDepartment") final Long idDepartment){
-        log.info("Updating activation to: {}, of department with id: {}.", Boolean.FALSE, idDepartment);
-        departmentService.updateActive(idDepartment, Boolean.FALSE);
+            @PathVariable("departmentId") final Long departmentId){
+        log.info("Updating activation to: {}, of department with id: {}.", Boolean.FALSE, departmentId);
+        departmentService.deactivateDepartment(departmentId);
         return ResponseEntity.noContent().build();
     }
 }

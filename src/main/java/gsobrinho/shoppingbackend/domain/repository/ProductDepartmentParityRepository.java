@@ -11,14 +11,16 @@ import java.util.List;
 public interface ProductDepartmentParityRepository extends CrudRepository<ProductDepartmentParity, ProductDepartmentParityId> {
 
     @Query(value = """
-        SELECT DISTINCT department_id
-        FROM product_department_parity
-        WHERE department_id IN (:ids)
-          AND department_id NOT IN (
+        SELECT DISTINCT d.id
+        FROM department d
+        WHERE d.id IN (:ids)
+          AND d.id NOT IN (
               SELECT DISTINCT department_id
               FROM product_department_parity
               WHERE product_id = :productId
           )
     """, nativeQuery = true)
     List<Long> findNonExistingIds(@Param("productId") Long productId, @Param("ids") List<Long> ids);
+
+    void deleteByDepartmentId(Long departmentId);
 }

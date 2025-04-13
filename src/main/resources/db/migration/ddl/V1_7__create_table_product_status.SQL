@@ -1,0 +1,6 @@
+CREATE TABLE product_status (
+      id TINYINT NOT NULL
+    , name VARCHAR(30) NOT NULL
+    , created_at DATETIME NOT NULL DEFAULT NOW()
+    , PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

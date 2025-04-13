@@ -18,5 +18,5 @@ public interface DepartmentService {
 
     Department update(final Department department);
 
-    void updateActive(Long idDepartment, final Boolean isActive);
+    void deactivateDepartment(Long idDepartment);
 }

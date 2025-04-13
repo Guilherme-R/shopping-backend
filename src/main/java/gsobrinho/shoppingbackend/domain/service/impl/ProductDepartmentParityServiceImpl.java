@@ -7,6 +7,7 @@ import gsobrinho.shoppingbackend.domain.service.ProductDepartmentParityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -20,28 +21,50 @@ public class ProductDepartmentParityServiceImpl implements ProductDepartmentPari
 
     private final ProductDepartmentParityRepository productDepartmentParityRepository;
 
-    @Override
+    @Transactional
     public List<ProductDepartmentParity> save(List<ProductDepartmentParity> lsParity) {
         return StreamSupport.stream(productDepartmentParityRepository.saveAll(lsParity).spliterator(), false)
                 .toList();
     }
 
-    @Override
-    public List<ProductDepartmentParity> saveNonExistingIds(final Long productId, final List<ProductDepartmentParity> lsParity) {
-        List<Long> nonExistingIds = productDepartmentParityRepository
-                .findNonExistingIds(productId, lsParity.stream().map(item -> item.getDepartment().getId()).toList());
+    @Transactional
+    public List<ProductDepartmentParity> saveNonExistingIds(
+            final Long productId,
+            final List<ProductDepartmentParity> lsParity
+    ) {
+        List<Long> lsIdNotAssociated = findLsIdNotAssociated(productId, lsParity);
 
-        if(CollectionUtils.isEmpty(nonExistingIds))
+        if(CollectionUtils.isEmpty(lsIdNotAssociated))
             return new ArrayList<>();
-        return save(lsParity.stream().filter(item -> nonExistingIds.stream()
-                .anyMatch(item1 -> item1.equals(item.getDepartment().getId())))
-            .toList());
+        return save(findDepartmentsToInsert(lsParity, lsIdNotAssociated));
     }
 
-    @Override
-    public void deleteParity(final Long productId, final List<Long> lsDepartment) {
+    private List<Long> findLsIdNotAssociated(
+            final Long productId,
+            final List<ProductDepartmentParity> lsParity
+    ){
+        return productDepartmentParityRepository
+                .findNonExistingIds(productId, lsParity.stream().map(item -> item.getDepartment().getId()).toList());
+    }
+
+    private List<ProductDepartmentParity> findDepartmentsToInsert(
+            final List<ProductDepartmentParity> lsParity,
+            final List<Long> nonExistingIds
+    ){
+        return lsParity.stream().filter(item -> nonExistingIds.stream()
+                    .anyMatch(item1 -> item1.equals(item.getDepartment().getId()))
+                ).toList();
+    }
+
+    @Transactional
+    public void deleteAssociation(final Long productId, final List<Long> ids) {
         productDepartmentParityRepository.deleteAllById(
-                lsDepartment.stream().map(departmentId -> new ProductDepartmentParityId(productId, departmentId)).toList()
+                ids.stream().map(id -> new ProductDepartmentParityId(productId, id)).toList()
         );
+    }
+
+    @Transactional
+    public void deleteByDepartmentId(final Long departmentId) {
+        productDepartmentParityRepository.deleteByDepartmentId(departmentId);
     }
 }

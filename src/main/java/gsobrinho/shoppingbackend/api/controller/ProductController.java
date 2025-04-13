@@ -38,6 +38,14 @@ public class ProductController {
                 productService.findAll()));
     }
 
+    @GetMapping("/department/{idDepartment}")
+    public ResponseEntity<List<Product>> findAllByIdDepartment(
+            @PathVariable final Long idDepartment){
+        log.info("Searching a list of products with department id: {}", idDepartment);
+
+        return ResponseEntity.ok(productService.findAllByDepartmentId(idDepartment));
+    }
+
     @PostMapping
     public ResponseEntity<ProductDto> save(
             @Valid @RequestBody final ProductForm productForm){
@@ -61,7 +69,7 @@ public class ProductController {
 
     @DeleteMapping("/{idProduct}")
     public ResponseEntity<Void> updateIsActive(
-            @PathVariable final Long idProduct){
+            @PathVariable final Long idProduct) {
         log.info("Updating activation to: {}, of product with id: {}.", Boolean.FALSE, idProduct);
         productService.updateActive(idProduct, Boolean.FALSE);
         return ResponseEntity.noContent().build();
@@ -70,9 +78,9 @@ public class ProductController {
     @DeleteMapping("/department/{idProduct}")
     public ResponseEntity<Void> deleteDepartmentParity(
             @PathVariable final Long idProduct,
-            @RequestParam("department") final List<Long> lsDepartment){
-        log.info("Deleting department parities with product id: {}", idProduct);
-        productService.deleteDepartmentParity(idProduct, lsDepartment);
+            @RequestParam("ids") final List<Long> ids){
+        log.info("Deleting department association with product id: {}", idProduct);
+        productService.deleteAssociation(idProduct, ids);
         return ResponseEntity.noContent().build();
     }
 }
